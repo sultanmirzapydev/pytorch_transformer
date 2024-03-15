@@ -1,0 +1,35 @@
+DataConfig:
+  base: &main
+    path: 
+    name:
+    batch_size: 64
+    max_length: 100
+    dec_length: 150
+  split:
+    test: datasets.Split.TEST
+    train: datasets.Split.TRAIN
+    val:   'val'
+    
+TrainerConfig:
+  adam:
+    lr_rate: 0.001
+  model:
+    encoder: &ref
+      num_head: 8
+      hidden_size: &h 512
+      max_seq_len: 2000
+      mid_dim: 2048
+      num_layer: 6
+      dropout: 0.1
+    
+    decoder: 
+      <<: *ref
+      num_layer: 6 
+    hidden_size: *h
+Train:
+  epochs: 100
+  batch_size: 64
+  model_path: '.'
+
+
+
